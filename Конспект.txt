@@ -46,7 +46,7 @@ DATABASES = {
 }
 
 --------------------------------------
-# Установка клиента mysql ВАРИАНТ 1
+# Установка клиента mysql ВАРИАНТ 2
 Подключение Connector/Python Django (mysql-connector-python)
 https://dev.mysql.com/doc/connector-python/en/connector-python-django-backend.html
 https://github.com/mysql/mysql-connector-python
@@ -171,4 +171,24 @@ print(p)
 --------------------------------
 Удаление миграций без изменения контента
 python manage.py migrate app zero --fake
+--------------------------------
+КОНФИГУРАЦИЯ ДЛЯ РАЗМЕЩЕНИЯ ПРИЛОЖЕНИЙ В ОТДЕЛЬНОЙ ПАПКЕ
+ПРОЕКТ/settings.py
+---------------------
+1.   import os  дописать
+import os, sys
+2.   После
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+ДОПИСАТЬ
+PROJECT_ROOT = os.path.dirname(__FILE__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
+
+3. СОЗДАЕМ ПАПКУ apps ВНУТРИ ПАПКИ ПРОЕКТА ( ГДЕ НАХОДИТСЯ ФАЙЛ settings.py )
+
+--------------------------------
+
+--------------------------------
+--------------------------------
 --------------------------------
