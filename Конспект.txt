@@ -8,12 +8,19 @@ https://www.youtube.com/channel/UCkBGH1VXCWOrIzPpdV493sQ/videos
 -------------------------------------
 https://www.youtube.com/watch?v=lsAbq2RcWlQ&list=PL0lO_mIqDDFXgfuxOEDTCwsWmKezOaDTu&index=26&t=0s
 -------------------------------------
+Подключаем GIT
+git remote add origin https://github.com/IgorDonchenko/DjangoPractice.git
+Пушим GIT
+git push -u origin master
 -------------------------------------
 virtualenv my_env
 pip install Django==2.0.5
+Проверка версии Django
+python -m django --version
 django-admin startproject mysite
 cd mysite
-# Установка клиента mysql
+
+# Установка клиента mysql ВАРИАНТ 1
 pip install mysqlclient
 # Подключаем mysql в файле проект/settings.py
 --------------------------------------
@@ -39,8 +46,11 @@ DATABASES = {
 }
 
 --------------------------------------
+# Установка клиента mysql ВАРИАНТ 1
 Подключение Connector/Python Django (mysql-connector-python)
 https://dev.mysql.com/doc/connector-python/en/connector-python-django-backend.html
+https://github.com/mysql/mysql-connector-python
+
 --------------------------------------
 DATABASES = {
     'default': {
