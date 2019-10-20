@@ -1,0 +1,164 @@
+https://www.youtube.com/watch?v=Y-8wCNh3fOs&list=PLlWXhlUMyooaDkd39pknA1-Olj54HtpjX&index=4
+https://www.youtube.com/playlist?list=PLp_WN118C-Vd7mj6avzhv2PRqdXVt_sXv
+https://www.youtube.com/watch?v=w4nrT7emiVc
+https://www.youtube.com/watch?v=Y-8wCNh3fOs&list=PLlWXhlUMyooaDkd39pknA1-Olj54HtpjX&index=4
+https://www.youtube.com/watch?v=lsAbq2RcWlQ&list=PL0lO_mIqDDFXgfuxOEDTCwsWmKezOaDTu&index=26&t=0s
+https://www.youtube.com/watch?v=QDyPiVbRHS0&list=PLp_WN118C-Ve1-avsgCd2Njm6166Kupy_&index=2&t=0s
+https://www.youtube.com/channel/UCkBGH1VXCWOrIzPpdV493sQ/videos
+-------------------------------------
+https://www.youtube.com/watch?v=lsAbq2RcWlQ&list=PL0lO_mIqDDFXgfuxOEDTCwsWmKezOaDTu&index=26&t=0s
+-------------------------------------
+-------------------------------------
+virtualenv my_env
+pip install Django==2.0.5
+django-admin startproject mysite
+cd mysite
+# Установка клиента mysql
+pip install mysqlclient
+# Подключаем mysql в файле проект/settings.py
+--------------------------------------
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+--------------------------------------
+Подключение Connector/Python Django (mysql-connector-python)
+https://dev.mysql.com/doc/connector-python/en/connector-python-django-backend.html
+--------------------------------------
+DATABASES = {
+    'default': {
+        'NAME': 'django',
+        'ENGINE': 'mysql.connector.django',
+        'USER': 'root',
+        'PASSWORD': '',
+        'OPTIONS': {
+          'autocommit': True,
+        },
+    }
+}
+--------------------------------------
+python manage.py makemigrations   # Создание миграции
+python manage.py migrate          # Выполнение миграции
+python manage.py runserver
+python manage.py startapp blog
+--------------------------------
+Содержимое файла blog/models.py:
+--------------------------------
+from django.db import models
+from django.utils import timezone 
+from django.contrib.auth.models import User 
+
+class Post(models.Model): 
+    STATUS_CHOICES = ( 
+        ('draft', 'Draft'), 
+        ('published', 'Published'), 
+    ) 
+    title = models.CharField(max_length=250) 
+    slug = models.SlugField(max_length=250,  
+                            unique_for_date='publish') 
+    author = models.ForeignKey(User, 
+                               on_delete=models.CASCADE,
+                               related_name='blog_posts') 
+    body = models.TextField() 
+    publish = models.DateTimeField(default=timezone.now) 
+    created = models.DateTimeField(auto_now_add=True) 
+    updated = models.DateTimeField(auto_now=True) 
+    status = models.CharField(max_length=10,  
+                              choices=STATUS_CHOICES, 
+                              default='draft') 
+    
+    class Meta:
+	    ordering = ('-publish',)
+		def __str__(self):
+		return self.title
+--------------------------------
+Содержимое файла mysite/settings.py:
+--------------------------------
+Добавить :
+'blog.apps.BlogConfig',
+в :
+INSTALLED_APPS = [
+--------------------------------
+Команда для создания и обновления таблиц при изменении класса модели
+python manage.py makemigrations blog
+--------------------------------
+Выводим SQL-запрос миграции в Консоль 
+python manage.py sqlmigrate blog 0001
+--------------------------------
+Выполним миграцию
+python manage.py migrate
+--------------------------------
+Создаем сайт администрирования
+python manage.py createsuperuser
+
+user, mail = root@mail.com
+pass = i19701978
+--------------------------------
+переустановить superuser django
+--------------------------------
+python manage.py createsuperuser   )))))
+--------------------------------
+Запуск проекта и сервера
+python manage.py runserver
+--------------------------------
+Изменяем blog/admin.py:
+from django.contrib import admin
+from .models import Post
+admin.site.register(Post)
+--------------------------------
+--------------------------------
+ПОДКЛЮЧЕНИЕ СУЩЕСТВУЮЩЕЙ БАЗЫ ДАННЫХ И СОЗДАНИЕ МОДЕЛЕЙ
+https://djbook.ru/rel1.6/howto/legacy-databases.html
+https://metanit.com/python/django/5.7.php
+--------------------------------
+sklad - имя приложения
+python manage.py inspectdb > sklad/models.py
+--------------------------------
+Установка стандартных данных Django в миграции
+python manage.py syncdb
+--------------------------------
+python manage.py makemigrations
+Изменений не обнаружено
+--------------------------------
+Добавляем стандартных users
+python manage.py migrate
+--------------------------------
+Создаем сайт администрирования
+python manage.py createsuperuser
+
+user, mail = root@mail.com
+pass = i19701978
+--------------------------------
+Запуск проекта и сервера
+python manage.py runserver
+--------------------------------
+Работаем с
+python manage.py shell
+--------------------------------
+from sklad.models import SeedsCategory
+category = SeedsCategory.objects.all()
+print(category)
+<QuerySet [<SeedsCategory: Семена  кукурузы  НК Термо>, <SeedsCategory: Семена  кукурузы Делитоп>]>
+p = category[0]
+print(p)
+--------------------------------
+Удаление миграций без изменения контента
+python manage.py migrate app zero --fake
+--------------------------------
