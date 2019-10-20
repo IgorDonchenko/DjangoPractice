@@ -187,6 +187,10 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 3. СОЗДАЕМ ПАПКУ apps ВНУТРИ ПАПКИ ПРОЕКТА ( ГДЕ НАХОДИТСЯ ФАЙЛ settings.py )
 
+4. В INSTALLED_APPS = [] файла settings.py прописываем
+имя_приложения.имя_папки приложения.ArticlesConfig
+articles.apps.ArticlesConfig 
+
 --------------------------------
 
 --------------------------------
